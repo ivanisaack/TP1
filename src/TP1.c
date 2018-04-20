@@ -6,7 +6,7 @@
 #include "main.h"
 
 
-#if (TEST == TP1_3)
+#if ( (TEST == (TP1_3)) || (TEST ==  (TP1_4)))
 
 void myTickHook( void *ptr ){
 
@@ -38,7 +38,20 @@ int main(void){
 #endif
 
 	boardConfig();
+#if (TEST == TP1_4)
 
+	tickConfig( TICKRATE_MS );
+
+	/* Se agrega ademas un "tick hook" nombrado myTickHook. El tick hook es
+	         simplemente una funcion que se ejecutara peri�odicamente con cada
+	         interrupcion de Tick, este nombre se refiere a una funcion "enganchada"
+	         a una interrupcion.
+	         El segundo parametro es el parametro que recibe la funcion myTickHook
+	         al ejecutarse. En este ejemplo se utiliza para pasarle el led a titilar.
+	 */
+	tickCallbackSet( myTickHook, (void*)LEDR );
+	delay(LED_TOGGLE_MS);
+#endif
 #if (TEST == TP1_3)
 
 	tickConfig( 50 );
@@ -103,6 +116,22 @@ int main(void){
 		delay(1000);
 		tickCallbackSet( myTickHook, (void*)LEDR );
 		delay(1000);
+#endif
+
+#if (TEST == TP1_4)
+
+		tickCallbackSet( myTickHook, (void*)LEDG );
+		delay(LED_TOGGLE_MS);
+		tickCallbackSet( myTickHook, (void*)LEDB );
+		delay(LED_TOGGLE_MS);
+		tickCallbackSet( myTickHook, (void*)LED1 );
+		delay(LED_TOGGLE_MS);
+		tickCallbackSet( myTickHook, (void*)LED2 );
+		delay(LED_TOGGLE_MS);
+		tickCallbackSet( myTickHook, (void*)LED3 );
+		delay(LED_TOGGLE_MS);
+		tickCallbackSet( myTickHook, (void*)LEDR );
+		delay(LED_TOGGLE_MS);
 #endif
 
 	}

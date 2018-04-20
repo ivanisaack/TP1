@@ -39,8 +39,12 @@
 #define TP1_1 (1) //blinky
 #define TP1_2 (2) //switches_leds
 #define TP1_3 (3) //tickHooks
-#define TEST (TP1_3)
-/*==================[inclusions]=============================================*/
+#define TP1_4 (4)
+#define TEST (TP1_4)
+
+#define TICKRATE_MS 100
+#define LED_TOGGLE_MS 500
+
 
 /*==================[cplusplus]==============================================*/
 
