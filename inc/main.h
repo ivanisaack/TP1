@@ -36,6 +36,10 @@
 #ifndef _BLINKY_H_
 #define _BLINKY_H_
 
+#define TP1_1 (1) //blinky
+#define TP1_2 (2) //switches_leds
+#define TP1_3 (3) //tickHooks
+#define TEST (TP1_3)
 /*==================[inclusions]=============================================*/
 
 /*==================[cplusplus]==============================================*/
