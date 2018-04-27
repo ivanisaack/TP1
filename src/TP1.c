@@ -6,7 +6,7 @@
 #include "main.h"
 
 
-#if ( (TEST == (TP1_3)) || (TEST ==  (TP1_4)))
+#if ( (TEST == (TP1_3)) || (TEST ==  (TP1_4)) || (TEST ==  (TP1_5)) || (TEST ==  (TP1_6)))
 
 void myTickHook( void *ptr ){
 
@@ -27,7 +27,7 @@ void myTickHook( void *ptr ){
 int main(void){
 
 	/* ------------- INICIALIZACIONES ------------- */
-#if (TEST == TP1_2)
+#if ((TEST == (TP1_2)) || (TEST ==  (TP1_6)))
 
 	gpioConfig( GPIO0, GPIO_INPUT );
 
@@ -38,7 +38,7 @@ int main(void){
 #endif
 
 	boardConfig();
-#if (TEST == TP1_4)
+#if ((TEST == (TP1_4)) || (TEST ==  (TP1_5)) || (TEST ==  (TP1_6)))
 
 	tickConfig( TICKRATE_MS );
 
@@ -49,8 +49,8 @@ int main(void){
 	         El segundo parametro es el parametro que recibe la funcion myTickHook
 	         al ejecutarse. En este ejemplo se utiliza para pasarle el led a titilar.
 	 */
-	tickCallbackSet( myTickHook, (void*)LEDR );
-	delay(LED_TOGGLE_MS);
+	//tickCallbackSet( myTickHook, (void*)LEDR );
+	//delay(LED_TOGGLE_MS);
 #endif
 #if (TEST == TP1_3)
 
@@ -66,7 +66,13 @@ int main(void){
 	tickCallbackSet( myTickHook, (void*)LEDR );
 	delay(1000);
 #endif
+#if (TEST == TP1_5 || (TEST ==  (TP1_6)))
 
+	DEBUG_PRINT_ENABLE;
+
+	debugPrintConfigUart( UART_USB, 115200 );
+
+#endif
 	/* Inicializar la placa */
 
 	/* ------------- REPETIR POR SIEMPRE ------------- */
@@ -134,6 +140,47 @@ int main(void){
 		delay(LED_TOGGLE_MS);
 #endif
 
+#if (TEST == TP1_5 || (TEST ==  (TP1_6)))
+
+//		debugPrintString( "DEBUG c/sAPI\r\n" );
+
+		if(!gpioRead( TEC1 )){
+		tickCallbackSet( myTickHook, (void*)LEDG );
+		debugPrintString( "LED GREEN\n" );
+		delay(LED_TOGGLE_MS);
+		gpioWrite( LEDG, 0 );
+
+
+		}
+		if(!gpioRead( TEC2 )){
+		tickCallbackSet( myTickHook, (void*)LEDB );
+		debugPrintString( "LED BLUE\n" );
+		delay(LED_TOGGLE_MS);
+		gpioWrite( LEDB, 0 );
+
+		}
+		//debugPrintString( "LED Toggle\n" );
+		if(!gpioRead( TEC3 )){
+
+		tickCallbackSet( myTickHook, (void*)LED1 );
+		debugPrintString( "LED 1\n" );
+
+		delay(LED_TOGGLE_MS);
+		gpioWrite( LED1, 0 );
+
+		tickCallbackSet( myTickHook, (void*)LED2 );
+		debugPrintString( "LED 2\n" );
+		delay(LED_TOGGLE_MS);
+		gpioWrite( LED2, 0 );
+
+		tickCallbackSet( myTickHook, (void*)LED3 );
+		debugPrintString( "LED 3\n" );
+		delay(LED_TOGGLE_MS);
+		gpioWrite( LED3, 0 );
+		}
+
+
+#endif
 	}
 
 	/* NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa no es llamado

@@ -40,10 +40,13 @@
 #define TP1_2 (2) //switches_leds
 #define TP1_3 (3) //tickHooks
 #define TP1_4 (4)
-#define TEST (TP1_4)
+#define TP1_5 (5)
+#define TP1_6 (6)
+
+#define TEST (TP1_6)
 
 #define TICKRATE_MS 100
-#define LED_TOGGLE_MS 500
+#define LED_TOGGLE_MS 500 //100ms//500ms//1000ms
 
 
 /*==================[cplusplus]==============================================*/
